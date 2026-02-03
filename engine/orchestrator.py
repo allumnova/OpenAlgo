@@ -1,6 +1,11 @@
 import asyncio
-import logging
+import sys
 import os
+
+# Add parent directory to path to import shared module
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+import logging
 import datetime
 from shared.adapters import DhanAdapter, ZerodhaAdapter
 from shared.models import StrategyConfig
@@ -24,7 +29,9 @@ class StrategyEngine:
 
     def load_strategies(self):
         strategies = []
-        strat_dir = os.path.join(os.getcwd(), "shared", "strategies")
+        # Use project root for strategy directory
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        strat_dir = os.path.join(project_root, "shared", "strategies")
         if os.path.exists(strat_dir):
             import json
             for filename in os.listdir(strat_dir):
@@ -123,7 +130,7 @@ class StrategyEngine:
                 db = SessionLocal()
                 log = TradeLog(
                     symbol=symbol,
-                    qty=order_data["qty"],
+                    quantity=order_data["qty"],
                     price=price,
                     side="BUY",
                     status="COMPLETED"

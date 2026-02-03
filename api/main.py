@@ -1,4 +1,9 @@
 from fastapi import FastAPI
+import sys
+import os
+
+# Add parent directory to path to import shared module
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fastapi.middleware.cors import CORSMiddleware
 import os
 import json
@@ -29,7 +34,8 @@ async def get_status():
     status = "connected" if last_event and last_event.event_type == "ENGINE_START" else "disconnected"
     
     # 2. Count Active Strategies
-    strat_dir = os.path.join(os.getcwd(), "..", "shared", "strategies")
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    strat_dir = os.path.join(project_root, "shared", "strategies")
     active_count = 0
     if os.path.exists(strat_dir):
         for filename in os.listdir(strat_dir):
@@ -46,7 +52,7 @@ async def get_status():
     # In a real app, this would be fetched from adapter/database
     trades = db.query(TradeLog).all()
     # For now, let's just use a more realistic "empty" state if no trades exist
-    pnl = sum([t.price * t.qty * (1 if t.side == "SELL" else -1) for t in trades]) if trades else 0.0
+    pnl = sum([t.price * t.quantity * (1 if t.side == "SELL" else -1) for t in trades]) if trades else 0.0
     
     db.close()
     
@@ -77,7 +83,8 @@ async def get_trade_logs():
 
 @app.get("/strategies")
 async def list_strategies():
-    strat_dir = os.path.join(os.getcwd(), "..", "shared", "strategies")
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    strat_dir = os.path.join(project_root, "shared", "strategies")
     strategies = []
     if os.path.exists(strat_dir):
         import json
@@ -89,7 +96,8 @@ async def list_strategies():
 
 @app.post("/strategies")
 async def save_strategy(strategy: dict):
-    strat_dir = os.path.join(os.getcwd(), "..", "shared", "strategies")
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    strat_dir = os.path.join(project_root, "shared", "strategies")
     os.makedirs(strat_dir, exist_ok=True)
     filename = f"{strategy['name'].lower().replace(' ', '_')}.json"
     import json
