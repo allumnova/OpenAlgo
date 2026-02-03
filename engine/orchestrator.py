@@ -83,9 +83,53 @@ class StrategyEngine:
             await asyncio.sleep(10)
 
     async def process_strategy(self, strat: dict):
-        # Placeholder for Signal Generation logic
-        # In Phase 4, we'd fetch live price and compare against strat['rules']
+        """Processes signals for a single strategy."""
         logger.info(f"Processing strategy: {strat['name']}")
+        
+        symbol = strat.get('symbol')
+        asset_class = strat.get('asset_class', 'EQUITY')
+        
+        # 1. Fetch live price (simulated for now)
+        # In production, we'd use self.adapter.get_live_price(symbol)
+        import random
+        price = 1000 + random.uniform(-10, 10) 
+        
+        # 2. Check Signal Conditions (Rules)
+        # For demo, let's just trigger a random trade if not already in one
+        # Real logic would parse strat['rules']['buy'] etc.
+        if random.random() > 0.95:
+            logger.info(f"SIGNAL DETECTED for {symbol} ({asset_class})")
+            
+            # Place Order
+            order_data = {
+                "symbol": symbol,
+                "qty": strat.get("quantity", 1),
+                "type": "BUY",
+                "price": price,
+                "asset_class": asset_class,
+                "instrument": strat.get("instrument_type") # CE/PE
+            }
+            
+            try:
+                # Actual order placement via adapter
+                # await self.adapter.place_order(order_data)
+                
+                # Log to DB
+                db = SessionLocal()
+                log = TradeLog(
+                    symbol=symbol,
+                    qty=order_data["qty"],
+                    price=price,
+                    side="BUY",
+                    status="COMPLETED"
+                )
+                db.add(log)
+                db.commit()
+                db.close()
+                
+                self.log_event("TRADE_EXECUTION", f"Placed {asset_class} BUY order for {symbol}")
+            except Exception as e:
+                logger.error(f"Failed to place order: {e}")
 
 async def main():
     engine = StrategyEngine()

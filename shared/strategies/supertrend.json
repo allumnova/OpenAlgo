@@ -1,0 +1,19 @@
+{
+    "name": "Supertrend Trend Follower",
+    "symbol": "NSE:NIFTY50-INDEX",
+    "quantity": 50,
+    "enabled": false,
+    "asset_class": "EQUITY",
+    "rules": {
+        "buy": [
+            {
+                "condition": "close > supertrend(10, 3)"
+            }
+        ],
+        "sell": [
+            {
+                "condition": "close < supertrend(10, 3)"
+            }
+        ]
+    }
+}

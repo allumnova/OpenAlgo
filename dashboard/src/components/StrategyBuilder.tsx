@@ -5,6 +5,8 @@ export const StrategyBuilder: React.FC = () => {
     const [name, setName] = useState('');
     const [symbol, setSymbol] = useState('');
     const [quantity, setQuantity] = useState(1);
+    const [assetClass, setAssetClass] = useState('EQUITY');
+    const [instrumentType, setInstrumentType] = useState('N/A');
     const [status, setStatus] = useState('');
 
     const handleSave = async () => {
@@ -12,6 +14,8 @@ export const StrategyBuilder: React.FC = () => {
             name,
             symbol,
             quantity,
+            asset_class: assetClass,
+            instrument_type: instrumentType,
             enabled: true,
             rules: {
                 buy: [{ condition: "price > sma(20)" }],
@@ -59,6 +63,31 @@ export const StrategyBuilder: React.FC = () => {
                         style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.8rem', borderRadius: '8px' }}
                     />
                 </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <label style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Asset Class</label>
+                    <select
+                        value={assetClass}
+                        onChange={(e) => setAssetClass(e.target.value)}
+                        style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.8rem', borderRadius: '8px' }}
+                    >
+                        <option value="EQUITY">Equity</option>
+                        <option value="OPTIONS">Options</option>
+                        <option value="FUTURES">Futures</option>
+                    </select>
+                </div>
+                {assetClass === 'OPTIONS' && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                        <label style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Instrument Type</label>
+                        <select
+                            value={instrumentType}
+                            onChange={(e) => setInstrumentType(e.target.value)}
+                            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.8rem', borderRadius: '8px' }}
+                        >
+                            <option value="CE">Call (CE)</option>
+                            <option value="PE">Put (PE)</option>
+                        </select>
+                    </div>
+                )}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <label style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Quantity</label>
                     <input

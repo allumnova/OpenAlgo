@@ -3,7 +3,7 @@ const qrcode = require('qrcode-terminal');
 const axios = require('axios');
 require('dotenv').config();
 
-const API_URL = process.env.API_URL || 'http://api:8000';
+const API_URL = process.env.API_URL || 'http://localhost:8001';
 const AUTHORIZED_NUMBER = process.env.WHATSAPP_PHONE_NUMBER;
 
 const client = new Client({

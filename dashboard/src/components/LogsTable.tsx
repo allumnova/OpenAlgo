@@ -7,7 +7,7 @@ export const LogsTable: React.FC = () => {
     useEffect(() => {
         const fetchLogs = async () => {
             try {
-                const res = await fetch('http://localhost:8000/logs/audit');
+                const res = await fetch(`${API_BASE_URL}/logs/audit`);
                 const data = await res.json();
                 setAuditLogs(data);
             } catch (e) {

@@ -1,0 +1,19 @@
+{
+    "name": "Range Breakout",
+    "symbol": "NSE:BANKNIFTY-INDEX",
+    "quantity": 25,
+    "enabled": false,
+    "asset_class": "EQUITY",
+    "rules": {
+        "buy": [
+            {
+                "condition": "price > high(prev_window_30m)"
+            }
+        ],
+        "sell": [
+            {
+                "condition": "price < low(prev_window_30m)"
+            }
+        ]
+    }
+}

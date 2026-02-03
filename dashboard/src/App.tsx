@@ -4,6 +4,7 @@ import { SetupWizard } from './components/SetupWizard';
 import { LogsTable } from './components/LogsTable';
 import { StrategyBuilder } from './components/StrategyBuilder';
 import { StrategyList } from './components/StrategyList';
+import { LiveFeed } from './components/LiveFeed';
 import './index.css';
 
 interface Status {
@@ -69,6 +70,10 @@ function App() {
           <div style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>◌ Strategies</div>
           <div style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>◌ Risk Settings</div>
           <div style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>◌ Broker Links</div>
+          <div style={{ marginTop: '2rem', padding: '1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
+            <p style={{ fontSize: '0.8rem', marginBottom: '0.5rem' }}>Fast Access</p>
+            <button className="btn btn-primary" style={{ fontSize: '0.7rem', width: '100%' }}>Scan QR Login</button>
+          </div>
         </nav>
         <div style={{ marginTop: 'auto' }}>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>v0.1.0-alpha</p>
@@ -111,6 +116,8 @@ function App() {
             <p className="stat-value" style={{ fontSize: '1.5rem' }}>{status.broker}</p>
           </div>
         </section>
+
+        <LiveFeed />
 
         <StrategyList />
         <StrategyBuilder />
