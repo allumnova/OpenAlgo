@@ -12,7 +12,12 @@ logger = logging.getLogger("Orchestrator")
 class StrategyEngine:
     def __init__(self):
         # Initialize adapter based on config
-        self.adapter = DhanAdapter() 
+        broker_type = os.getenv("ACTIVE_BROKER", "DHAN").upper()
+        if broker_type == "ZERODHA":
+            self.adapter = ZerodhaAdapter()
+        else:
+            self.adapter = DhanAdapter()
+            
         self.strategies: list[dict] = self.load_strategies()
         self.is_running = False
         init_db()
