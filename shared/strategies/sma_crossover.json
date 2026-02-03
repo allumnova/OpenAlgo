@@ -1,0 +1,18 @@
+{
+    "name": "SMA Crossover Basic",
+    "symbol": "NSE:INFY",
+    "quantity": 5,
+    "enabled": true,
+    "rules": {
+        "buy": [
+            {
+                "condition": "price > sma(50)"
+            }
+        ],
+        "sell": [
+            {
+                "condition": "price < sma(50)"
+            }
+        ]
+    }
+}

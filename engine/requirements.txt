@@ -1,0 +1,7 @@
+python-dotenv
+sqlalchemy
+aiosqlite
+httpx
+pydantic
+pandas
+kiteconnect

@@ -1,0 +1,18 @@
+{
+    "name": "Mean Reversion RSI",
+    "symbol": "NSE:RELIANCE",
+    "quantity": 2,
+    "enabled": false,
+    "rules": {
+        "buy": [
+            {
+                "condition": "rsi(14) < 30"
+            }
+        ],
+        "sell": [
+            {
+                "condition": "rsi(14) > 70"
+            }
+        ]
+    }
+}

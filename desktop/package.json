@@ -1,0 +1,12 @@
+{
+    "name": "openalgo-desktop",
+    "version": "1.0.0",
+    "description": "Desktop wrapper for OpenAlgo",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "devDependencies": {
+        "electron": "^28.0.0"
+    }
+}
