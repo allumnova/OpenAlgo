@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from './config';
 import { SetupWizard } from './components/SetupWizard';
 import { LogsTable } from './components/LogsTable';
 import { StrategyBuilder } from './components/StrategyBuilder';
@@ -30,7 +31,7 @@ function App() {
 
     const fetchStatus = async () => {
       try {
-        const res = await fetch('http://localhost:8000/status');
+        const res = await fetch(`${API_BASE_URL}/status`);
         const data = await res.json();
         // Mapping API response to status state
         setStatus({

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_BASE_URL } from '../config';
 
 export const StrategyBuilder: React.FC = () => {
     const [name, setName] = useState('');
@@ -19,7 +20,7 @@ export const StrategyBuilder: React.FC = () => {
         };
 
         try {
-            const res = await fetch('http://localhost:8000/strategies', {
+            const res = await fetch(`${API_BASE_URL}/strategies`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(strategy)

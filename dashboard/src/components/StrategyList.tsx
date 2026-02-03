@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 export const StrategyList: React.FC = () => {
     const [strategies, setStrategies] = useState<any[]>([]);
 
     const fetchStrategies = async () => {
         try {
-            const res = await fetch('http://localhost:8000/strategies');
+            const res = await fetch(`${API_BASE_URL}/strategies`);
             const data = await res.json();
             setStrategies(data);
         } catch (e) {

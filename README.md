@@ -55,7 +55,7 @@ OpenAlgo runs on a modular, micro-service architecture orchestrated via Docker:
    ```
 
 4. **Access the Dashboard**:
-   Open [http://localhost:3000](http://localhost:3000) in your browser or choose `y` in the launcher to start the **Desktop App**.
+   Open [http://localhost:3001](http://localhost:3001) in your browser or choose `y` in the launcher to start the **Desktop App**.
 
 ---
 
